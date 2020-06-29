@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/v4-shims.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
+    <title>Document</title>
+</head>
+<body>
+
+ <div id="youranswers">
+  <div id="container"></div>
+
+ </div>
+ 
+  <div id = "questionaire" style="display: block;">
+ <form > 
+ <div id="main">
+  <div id="alertban" class="alert alert-warning" role="alert" style="display: none;">
+    Please fill out the complete form
+  </div>
+ </div>
+</form> 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal" onclick="cleardiv()">
+    Add a new Question
+  </button>
+  
+  <button id="sumbitform" onclick="yes()" style="display: none;">
+    submit 
+  </button>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <form >>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create a new question</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+
+          
+            <div class="box" style="margin-bottom: 10px;">
+                <select id="drop" placeholder=Question onselect="logit()" >
+                    <option value="" disabled selected>Type of Question</option>
+                    <option >Radio button</option>
+                    <option >Check box</option>
+                    <option >Dropdown</option>
+                    <option >Description</option>
+                </select>
+
+               
+
+            <form id="forme" class="needs-validation" novalidate  >
+
+           
+   
+
+            <div id="questions" >
+                <div class="input-group mb-3">
+                    <input id="question" type="text"  class="form-control" placeholder="Enter your question herer.." aria-label="Total Fields" aria-describedby="button-addon2" required>
+                    
+                    <div class="input-group-append">
+                      
+                    </div>
+                  </div>
+            </div>
+
+            <div id="alloptions">
+
+            </div>
+            <button  class="btn btn-primary" type="button"  onclick="meme()">Create</button>
+          </form>
+
+
+
+
+
+
+                
+
+                
+                <button id="addoption" style="display: none;" type="button" class="btn btn-primary btn-sm mt-3 mb-1" onclick="addoptionss()">Add option</button>
+            </div>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+          <button  class="btn btn-primary" type="submit">Create</button>
+        </div> -->
+      </div>
+    </div>
+  </form>
+  </div>
+
+
+
+
+  </div>
+
+  
+  <script src="validation.js"></script>
+  <script src="test.js"></script>
+  <script src="createform.js">
+     
+  </script>
+  <script >
+
+
+
+var type; 
+var questions ; 
+var alloptions =[];
+var id = 0; 
+
+function yes(){
+  console.log('yees')
+  let mdf = document.getElementsByClassName("form-check-input");
+  let rb = document.getElementsByClassName("form-check-label");
+  
+  // for (var i =0 ; i <= mdf.length;i++){
+  //   if(mdf[i].checked){
+  //     console.log(mdf[i])
+  //     console.log(rb[i].innerHTML)
+  //     console.log()
+  //   }
+    
+  // }
+  val = new validate();
+  val.validateradiobutton()
+}
+
+function meme(){
+
+          
+
+          const formdata = document.getElementById("question").value
+          if (formdata.length == 0){
+            return
+          }
+          else{
+            questions = formdata
+          }
+      const answers = document.getElementsByClassName("ouroptionsclass")
+       var i;
+      for (i = 0; i < answers.length; i++) {
+      
+      if (answers[i].value == 0){
+        addoptions = [];
+            return
+          }
+          else{
+            alloptions.push(answers[i].value)
+          }
+    console.log(answers[i].value)
+    }
+    
+    console.log('q',questions)
+    console.log('a',alloptions)
+    build(type,questions,alloptions)
+    alloptions =[]
+    console.log(formdata)
+    formdata.value = "";
+
+        }
+
+
+function cleardiv(){
+  let fi = document.getElementById("question").value = ''
+  let fields = document.getElementById("alloptions")
+  fields.innerHTML  = ''
+}
+
+var question ;
+var alloptions = [];
+
+function addoptionss(){
+          
+          
+          ab.addarea('alloptions')
+        }
+
+        
+  
+   
+  
+ 
+    window.onchange = function() {
+    var eSelect = document.getElementById('drop');
+    eSelect.onchange = function() {
+      
+        let x = eSelect.value;
+        ab = new survey('hi')
+        ab.buttondiplay(x)
+        cleardiv()
+        
+      
+
+  switch (x) {
+  case 'Dropdown':
+  ab.addarea('alloptions')
+  type = x;  
+  console.log(type)
+
+ 
+    
+
+  
+
+    
+    break;
+  
+    case 'Radio button':
+    type = x;  
+    ab.addarea('alloptions')
+  console.log(type)
+ 
+  
+    break;
+    
+    case 'Check box':
+    type = x;  
+    ab.addarea('alloptions')
+  console.log(type)
+
+    
+    
+
+    break;
+
+    case 'Description':
+    type = x;  
+  console.log(type)
+    
+   
+    
+    
+        
+    
+  
+
+}
+
+   
+ }
+}
+
+function build(type,question,alloptions){
+  document.getElementById("basicExampleModal").style.display = "hide";
+  // id = document.getElementsByClassName("container")
+  // console.log(id.length)
+  // id = id + 1; 
+  // id = id.toString()
+  // console.log(id)
+  // console.log(typeof id)
+  id = id +1;
+  id.toString()
+
+  
+  switch (type) {
+  case 'Dropdown':
+    
+  
+
+
+
+we = new dropDown(question,id)
+we.divCard()
+we.options(alloptions)
+
+
+  
+
+    
+    break;
+  
+    case 'Radio button':
+
+    
+  no = new radioButton(question,id);
+  no.divCard()
+  console.log(alloptions,'from outside')
+  no.options(alloptions)
+
+    break;
+    
+    case 'Check box':
+
+    you = new checkbox(question,id);
+    you.divCard()
+    you.options(alloptions)
+    
+
+    break;
+
+    case 'Description':
+    
+    desc = new formcreation(question,id);
+    desc.divCard()
+    desc.options()
+    
+    
+        
+    
+  
+
+}
+
+}
+
+</script>
+    
+</body>
+</html>
